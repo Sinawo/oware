@@ -91,21 +91,18 @@ let useHouse n board = // failwith "Not implemented"
          let (a',b',c',d',e',f') = board.northplayer.houses 
          let (a ,b ,c ,d ,e ,f ) = board.southplayer.houses in
          let numSeeds = getSeeds n board
-         let newboard = setSeeds n 0 board
-
-
-        
-         let rec updateBoard currentHouse nSeeds newboard=
+         let nboard = setSeeds n 0 board
+         let nxtHouse = nextHouse n
+         let rec updateBoard currentHouse nSeeds newboard =
+             
+              let numSeeds = getSeeds currentHouse newboard
               match nSeeds>0 with 
               | true -> 
-                let nxtHouse = nextHouse n
-                let numSeeds = getSeeds nxtHouse newboard
                 //updateBoard (nextHouse n) (getSeeds (nextHouse n) board) in
-                let board = setSeeds nxtHouse (numSeeds+1) newboard
-                updateBoard nxtHouse (numSeeds-1) board
+                let board = setSeeds currentHouse (numSeeds+1) newboard
+                updateBoard (currentHouse + 1) (nSeeds-1) board
               | _ -> newboard
-
-         updateBoard n numSeeds newboard
+         updateBoard nxtHouse numSeeds nboard 
 
 
 
