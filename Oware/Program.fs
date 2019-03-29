@@ -128,6 +128,20 @@ let start position =
                    
 //score, which accepts a board and gives back a 
 //tuple of (southScore , northScore)
+let capture n board = 
+    let seedsinHouse = getSeeds n board in
+        match seedsinHouse with
+        |2|3 -> setSeeds n 0 board
+        |_ ->board
+
+let changestate postion board=
+    match postion with
+    |South -> {board with state=Northturn}
+    |North -> {board with state=Southturn}
+    
+
+
+
 let score board = failwith "Not implemented"
 
 
